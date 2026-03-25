@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import { getWeatherIcon } from "./ImportIconsComponents";
+import { getWeatherIcon } from "./Import-icons-components";
 
 export function WeatherCard({ weathercode }: { weathercode: number }) {
   const Icon = getWeatherIcon(weathercode);
