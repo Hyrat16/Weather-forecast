@@ -5,15 +5,10 @@ export async function main() {
     latitude: -19.9546,
     longitude: -44.3407,
     current: ["temperature_2m", "weathercode"],
-    hourly: ["temperature_2m", "precipitation_probability", "weathercode"],
-    daily: [
-      "temperature_2m_max",
-      "temperature_2m_min",
-      "precipitation_sum",
-      "precipitation_probability_max",
-      "weathercode",
-    ],
-    timezone: "GMT",
+    hourly: ["temperature_2m", "weather_code"],
+    daily: ["temperature_2m_max", "temperature_2m_min", "weather_code"],
+    timezone: "auto",
+    past_days: 1,
   };
 
   const url = "https://api.open-meteo.com/v1/forecast";
@@ -26,14 +21,14 @@ export async function main() {
   const daily = response.daily()!;
 
   const hourlyTemperature = hourly.variables(0)!.valuesArray()!;
-  const hourlyPrecipitation = hourly.variables(1)!.valuesArray()!;
-  const hourlyWeathercode = hourly.variables(2)!.valuesArray()!;
+  //const hourlyPrecipitation = hourly.variables(1)!.valuesArray()!;
+  const hourlyWeathercode = hourly.variables(1)!.valuesArray()!;
 
   const dailyTempMax = daily.variables(0)!.valuesArray()!;
   const dailyTempMin = daily.variables(1)!.valuesArray()!;
-  const dailyPrecipitation = daily.variables(2)!.valuesArray()!;
+  //const dailyPrecipitation = daily.variables(2)!.valuesArray()!;
   //const dailyPrecipitationProb = daily.variables(3)!.valuesArray()!;
-  const dailyWeathercode = daily.variables(4)!.valuesArray()!;
+  //const dailyWeathercode = daily.variables(4)!.valuesArray()!;
 
   // Horário
   const hourlyTimes = Array.from(
@@ -113,8 +108,6 @@ export async function main() {
   `);
   });*/
 
-  console.log(dailyWeathercode[0]);
-
   return {
     current: {
       temperature: Math.round(current.variables(0)!.value()),
@@ -123,15 +116,15 @@ export async function main() {
     hourly: hourlyTimes.map((time, i) => ({
       time,
       temperature: Math.round(hourlyTemperature[i]),
-      precipitationProbability: hourlyPrecipitation[i],
+      //precipitationProbability: hourlyPrecipitation[i],
       weathercode: hourlyWeathercode[i],
     })),
     daily: dailyTimes.map((time, i) => ({
       time,
       tempMax: Math.round(dailyTempMax[i]),
       tempMin: Math.round(dailyTempMin[i]),
-      precipitationProbability: dailyPrecipitation[i],
-      weathercode: dailyWeathercode[i],
+      //precipitationProbability: dailyPrecipitation[i],
+      //weathercode: dailyWeathercode[i],
     })),
   };
 }
