@@ -1,17 +1,24 @@
 import "./index.css";
+import { main } from "../../api-response/emb";
+import { WeatherCard } from "../temperature-icons-wather/Icon";
 
-type Card = {
-  hours: number;
-  weathercodeIcon: number;
-  temperature: number;
-};
+const mai = await main();
+const arr = mai.hourly;
 
-export function CardHours({ hours, weathercodeIcon, temperature }: Card) {
-  return (
-    <div id="divP">
-      <p>hours</p>
-      <p>weathercodeIcon</p>
-      <p>temperature</p>
+const hoje = new Date().toLocaleDateString("sv-SE");
+
+const horasHoje = arr.filter(
+  (item) => new Date(item.time).toLocaleDateString("sv-SE") === hoje,
+);
+
+export const CardHours = () => {
+  return horasHoje.map((item, index) => (
+    <div key={index} id="divP">
+      <p>{new Date(item.time).getHours()}:00</p>
+      <WeatherCard
+        weathercode={(item.weathercode, { size: 30, color: "black" })}
+      />
+      <p>{item.temperature}</p>
     </div>
-  );
-}
+  ));
+};

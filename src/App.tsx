@@ -7,10 +7,10 @@ import { ButtonSearch } from "./components/button-search";
 import { CardHours } from "./components/cardHours";
 
 const city = "São Paulo";
-//const cel = "xww";
 const mais = await main();
 
 function App() {
+  //console.log(mais.hourly);
   return (
     <>
       <div id="divPrincipal">
@@ -29,7 +29,7 @@ function App() {
         </div>
 
         <div id="divPrincipal2">
-          <CardHours {1 ,2 ,3}/>
+          <CardHours />
         </div>
 
         <div id="divPrincipal3"></div>
