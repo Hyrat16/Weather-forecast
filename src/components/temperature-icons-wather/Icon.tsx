@@ -1,8 +1,24 @@
 import { createElement } from "react";
 import { getWeatherIcon } from "./Import-icons-components";
 
-export function WeatherCard({ weathercode }: { weathercode: number }) {
-  const Icon = getWeatherIcon(weathercode);
+type CompProp = {
+  codeNumber: number;
+  size?: "p" | "m" | "g";
+  color?: string;
+};
 
-  return <p>{createElement(Icon, { size: 150, color: "black" })}</p>;
+const sizes = {
+  p: 30,
+  m: 60,
+  g: 150,
+};
+
+export function WeatherIcon({
+  codeNumber,
+  size = "m",
+  color = "black",
+}: CompProp) {
+  const Icon = getWeatherIcon(codeNumber);
+
+  return <Icon size={sizes[size]} color={color} />;
 }

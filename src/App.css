@@ -92,10 +92,9 @@ body,
   border: 1px solid red;
 }
 
-#divPrimariaTemp2 {
-  font-size: 24px;
-  width: auto;
-  text-align: center;
+#divPrimariaTemp2 p {
+  size: 200;
+  color: white;
 }
 
 #divPrincipal2 {

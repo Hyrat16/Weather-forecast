@@ -1,7 +1,7 @@
 //import { useState } from 'react'
 import "./App.css";
 import { main } from "./api-response/emb";
-import { WeatherCard } from "./components/temperature-icons-wather/Icon";
+import { WeatherIcon } from "./components/temperature-icons-wather/Icon";
 import { dateFormat } from "./components/date";
 import { ButtonSearch } from "./components/button-search";
 import { CardHours } from "./components/cardHours";
@@ -24,7 +24,7 @@ function App() {
           <div id="divPrimariaTemp1">{ButtonSearch()}</div>
 
           <div id="divPrimariaTemp2">
-            <WeatherCard weathercode={mais.current.weathercode} />
+            <WeatherIcon codeNumber={3} size="g" color="blue" />
           </div>
         </div>
 

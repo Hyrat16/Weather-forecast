@@ -1,6 +1,6 @@
 import "./index.css";
 import { main } from "../../api-response/emb";
-import { WeatherCard } from "../temperature-icons-wather/Icon";
+import { WeatherIcon } from "../temperature-icons-wather/Icon";
 
 const mai = await main();
 const arr = mai.hourly;
@@ -15,9 +15,9 @@ export const CardHours = () => {
   return horasHoje.map((item, index) => (
     <div key={index} id="divP">
       <p>{new Date(item.time).getHours()}:00</p>
-      <WeatherCard
-        weathercode={(item.weathercode, { size: 30, color: "black" })}
-      />
+      <p>
+        <WeatherIcon codeNumber={item.weathercode} size="p" color="white" />
+      </p>
       <p>{item.temperature}</p>
     </div>
   ));
