@@ -1,6 +1,5 @@
 * {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -9,10 +8,16 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
+  font-family: sans-serif;
+  color: #2d2d2d;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-#divPrincipal {
+#container {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -26,8 +31,7 @@ body,
   gap: 20px;
 }
 
-#divLocalizaçao-Inicial {
-  border: 1px solid red;
+.glass-panel {
   width: 100%;
   height: 25%;
   display: flex;
@@ -37,39 +41,56 @@ body,
   padding: 10px;
 }
 
-#divPrimariaTemp {
+.temperature-block {
+  background-color: rgba(160, 196, 225, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    10px 10px 20px rgba(128, 165, 194, 0.3),
+    -10px -10px 20px rgba(255, 255, 255, 0.6);
   display: flex;
-  flex-direction: column;
-  border: 1px solid rgb(255, 81, 0);
   padding: 10px;
   align-items: center;
-  text-align: left;
-  justify-content: center;
-  width: 40%;
+  text-align: center;
+  width: 50%;
   height: 100%;
+  justify-content: center;
+  border-radius: 14px;
 }
 
-#divPrimariaTemp h1 {
-  font-size: 36px;
-  font-weight: 700;
-  width: auto;
-}
-
-#temp {
-  font-size: 120px;
-  font-weight: 200;
+.temperature-main {
+  margin: 10px 0;
+  font-size: 110px;
+  font-weight: bold;
   width: auto;
   line-height: 1;
 }
 
-#temp2 {
+.temperature-main h1 {
+  font-size: 36px;
+  font-weight: normal;
+  width: auto;
+}
+
+.date-hours {
+  margin: 0;
   font-size: 16px;
-  font-weight: 400;
+  opacity: 0.8;
   width: auto;
 }
 
 #divPrimariaTemp1 {
-  border: 1px solid rgb(255, 81, 0);
+  background-color: rgba(160, 196, 225, 0.6);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    10px 10px 20px rgba(128, 165, 194, 0.3),
+    -10px -10px 20px rgba(255, 255, 255, 0.6);
   width: 20%;
   height: 100%;
   display: flex;
@@ -111,4 +132,8 @@ body,
   border: 1px solid rgb(0, 255, 106);
   width: 100%;
   height: 50%;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  padding: 10px;
+  align-items: center;
 }

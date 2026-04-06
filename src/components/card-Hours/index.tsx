@@ -1,14 +1,12 @@
 import "./index.css";
-import { main } from "../../api-response/emb";
+import { mai } from "../../api-response/emb";
 import { WeatherIcon } from "../temperature-icons-wather/Icon";
+import { isSameDay } from "date-fns";
 
-const mai = await main();
-const arr = mai.hourly;
+const hoje = new Date();
 
-const hoje = new Date().toLocaleDateString("sv-SE");
-
-const horasHoje = arr.filter(
-  (item) => new Date(item.time).toLocaleDateString("sv-SE") === hoje,
+const horasHoje = mai.hourly.filter((item) =>
+  isSameDay(new Date(item.time), hoje),
 );
 
 export const CardHours = () => {

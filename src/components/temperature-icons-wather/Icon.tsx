@@ -1,4 +1,3 @@
-import { createElement } from "react";
 import { getWeatherIcon } from "./Import-icons-components";
 
 type CompProp = {
