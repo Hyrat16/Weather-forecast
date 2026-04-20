@@ -1,6 +1,9 @@
-import { fetchWeatherApi } from "openmeteo";
+import React from "react";
 
-export async function main() {
+import { fetchWeatherApi } from "openmeteo";
+import { useState, useEffect, useContext, ReactNode } from "react";
+
+async function main() {
   const params = {
     latitude: -19.9546,
     longitude: -44.3407,
@@ -78,4 +81,126 @@ export async function main() {
   };
 }
 
-export const mai = await main();
+// criar 3 contexts diferentes para cada dado  DAILY, CURRENT E O HOURLY
+interface Daily {
+  time: Date;
+  tempMax: number;
+  tempMin: number;
+  weathercode: number;
+  precipitationMax: number;
+}
+
+interface Current {
+  temperature: number;
+  weathercode: number;
+}
+
+interface Hourly {
+  time: Date;
+  temperature: number;
+  weathercode: number;
+  precipitation: number;
+}
+
+interface DadosWearther {
+  current: Current | null;
+  daily: Daily[];
+  hourly: Hourly[];
+
+  loading: boolean;
+  erro: string | null;
+  refetch: () => void;
+}
+
+interface WeatherCoordinatorProps {
+  children: ReactNode;
+}
+
+//
+export const nameContext = React.createContext<DadosWearther | undefined>(
+  undefined,
+);
+
+export const DaisProvider = ({ children }: WeatherCoordinatorProps) => {
+  const [current, setCurrent] = useState<Current | null>(null);
+  const [daily, setDaily] = useState<Daily[]>([]);
+  const [hourly, setHourly] = useState<Hourly[]>([]);
+
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
+
+  const BuscDay = async () => {
+    try {
+      setLoading(true);
+      setErro(null);
+
+      const dados = await main();
+
+      setCurrent(dados.current);
+      setDaily(dados.daily);
+      setHourly(dados.hourly);
+    } catch (error) {
+      setErro("Erro");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    BuscDay();
+  }, []);
+
+  return (
+    <nameContext.Provider
+      value={{ daily, hourly, current, loading, erro, refetch: BuscDay }}
+    >
+      {children}
+    </nameContext.Provider>
+  );
+};
+
+/* export const UseDadosAPI = () => {
+  const context = useContext(nameContext);
+
+  if (context === undefined) {
+    throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
+  }
+
+  return context;
+}; */
+
+export const useHourly = () => {
+  const context = useContext(nameContext);
+
+  if (!context) {
+    throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
+  }
+
+  const { hourly, loading, erro } = context;
+
+  return { hourly, loading, erro };
+};
+
+export const useDaily = () => {
+  const context = useContext(nameContext);
+
+  if (!context) {
+    throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
+  }
+
+  const { loading, erro, daily } = context;
+
+  return { loading, erro, daily };
+};
+
+export const useCurrent = () => {
+  const context = useContext(nameContext);
+
+  if (!context) {
+    throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
+  }
+
+  const { loading, erro, current } = context;
+
+  return { loading, erro, current };
+};

@@ -1,7 +1,6 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 html,
@@ -27,13 +26,14 @@ body,
   background-position: center;
   background-attachment: fixed;
   align-items: center;
-  padding: 20px;
-  gap: 20px;
+  padding: 16pxpx;
+  gap: 10px;
 }
 
 .glass-panel {
   width: 100%;
-  height: 25%;
+  height: 140px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -121,7 +121,10 @@ body,
 #divPrincipal2 {
   border: 1px solid rgb(0, 17, 255);
   width: 100%;
-  height: 25%;
+  height: 90px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -131,9 +134,11 @@ body,
 #divPrincipal3 {
   border: 1px solid rgb(0, 255, 106);
   width: 100%;
-  height: 50%;
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   padding: 10px;
   align-items: center;
+  flex: 1;
 }
