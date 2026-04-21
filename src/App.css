@@ -2,18 +2,21 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+/* =========================================
+   CONFIGURAÇÕES GERAIS DA TELA
+   ========================================= */
 html,
 body,
 #root {
   width: 100%;
-  font-family: sans-serif;
-  color: #2d2d2d;
+  height: 100vh;
+  overflow: hidden; /* Remove a barra de rolagem principal */
+  font-family: "Inter", system-ui, sans-serif;
+  color: white;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 #container {
@@ -24,77 +27,82 @@ body,
   background-image: url("./assets/beautiful-skyscape-daytime.jpg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  align-items: center;
-  padding: 16pxpx;
-  gap: 10px;
+  padding: 32px;
+  gap: 24px;
+  margin: 0 auto;
 }
 
+/* =========================================
+   PARTE SUPERIOR (Painel Principal e Busca)
+   ========================================= */
 .glass-panel {
   width: 100%;
-  height: 140px;
-  flex-shrink: 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
+  gap: 24px;
 }
 
+/* Bloco da Esquerda: Temperatura Atual */
 .temperature-block {
-  background-color: rgba(160, 196, 225, 0.6);
-  backdrop-filter: blur(10px);
+  flex: 1; /* Faz o bloco esticar e ocupar o espaço restante */
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    10px 10px 20px rgba(128, 165, 194, 0.3),
-    -10px -10px 20px rgba(255, 255, 255, 0.6);
+  padding: 32px 40px;
   display: flex;
-  padding: 10px;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-  border-radius: 14px;
 }
 
-.temperature-main {
-  margin: 10px 0;
-  font-size: 110px;
-  font-weight: bold;
-  width: auto;
+/* Agrupamento dos textos da esquerda */
+.temperature-block > .temperature-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+}
+
+.city-name {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+p.temperature-main {
+  font-size: 80px;
+  font-weight: 700;
+  margin: 0;
   line-height: 1;
 }
 
-.temperature-main h1 {
-  font-size: 36px;
-  font-weight: normal;
-  width: auto;
-}
-
 .date-hours {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
-  font-size: 16px;
-  opacity: 0.8;
-  width: auto;
 }
 
-#divPrimariaTemp1 {
-  background-color: rgba(160, 196, 225, 0.6);
-
-  backdrop-filter: blur(10px);
-
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  box-shadow:
-    10px 10px 20px rgba(128, 165, 194, 0.3),
-    -10px -10px 20px rgba(255, 255, 255, 0.6);
-  width: 20%;
-  height: 100%;
+/* Ícone de clima na direita com círculo de fundo */
+.inner-circle-icon {
+  width: 110px;
+  height: 110px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
   display: flex;
+  justify-content: center;
   align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Bloco da Direita: Busca */
+#divPrimariaTemp1 {
+  width: 300px; /* Largura fixa para manter a proporção com o bloco da esquerda */
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -119,16 +127,21 @@ body,
 }
 
 #divPrincipal2 {
-  border: 1px solid rgb(0, 17, 255);
-  width: 100%;
-  height: 90px;
-  flex-shrink: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 16px 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  overflow-x: auto;
+  gap: 24px;
+}
+
+#divPrincipal2::-webkit-scrollbar {
+  height: 6px;
+}
+#divPrincipal2::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
 
 #divPrincipal3 {

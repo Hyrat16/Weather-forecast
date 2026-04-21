@@ -7,7 +7,6 @@ export const CardHours = () => {
   const use = useHourly();
   const hoje = new Date();
 
-
   const horasHoje = use.hourly.filter((item) =>
     isSameDay(new Date(item.time), hoje),
   );
@@ -17,7 +16,7 @@ export const CardHours = () => {
       <p>
         <WeatherIcon codeNumber={item.weathercode} size="p" color="white" />
       </p>
-      <p id="temp">{item.temperature}</p>
+      <p id="temp">{item.temperature}º</p>
     </div>
   ));
 };

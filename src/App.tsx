@@ -4,18 +4,12 @@ import { WeatherIcon } from "./components/temperature-icons-wather/Icon";
 import { dates } from "./components/date";
 import { ButtonSearch } from "./components/button-search";
 import { CardHours } from "./components/card-Hours";
-//import { Daily, linha1 } from "./components/card-Daily";
-import {
-  DaisProvider,
-  useHourly,
-  useCurrent,
-  useDaily,
-} from "./api-response/emb";
+import { DaysComponent } from "./components/card-Daily";
+import { DaisProvider, useHourly, useCurrent } from "./api-response/emb";
 
 const city = "São Paulo";
 
 function WeatherContent() {
-  const { hourly } = useHourly();
   const { current } = useCurrent();
 
   return (
@@ -33,7 +27,7 @@ function WeatherContent() {
               <WeatherIcon
                 codeNumber={current?.weathercode!}
                 size="g"
-                color="white"
+                color="blue"
               />
             </div>
           </div>
@@ -48,7 +42,9 @@ function WeatherContent() {
         <CardHours />
       </div>
 
-      <div id="divPrincipal3"></div>
+      <div id="divPrincipal3">
+        <DaysComponent />
+      </div>
     </div>
   );
 }
