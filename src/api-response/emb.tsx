@@ -1,7 +1,11 @@
 import React from "react";
-
 import { fetchWeatherApi } from "openmeteo";
 import { useState, useEffect, useContext, ReactNode } from "react";
+
+interface DadosGeo {
+  latitude: number;
+  longitude: number;
+}
 
 async function main() {
   const params = {

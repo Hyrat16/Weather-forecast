@@ -1,72 +1,72 @@
-#daily-row {
+.daily-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.daily-grid-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
-#icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#daily-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-}
-
-#comp {
-  background-color: rgba(255, 255, 255, 0.08); /* Efeito translúcido suave */
+.daily-card {
+  background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 20px;
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 190px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 180px;
+  transition: transform 0.2s ease;
 }
 
-#comp #icon {
+.daily-card:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-6px);
+}
+
+.daily-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 17px;
-  font-weight: 500;
+}
+
+.daily-day {
   text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-#comp #temp {
-  margin-top: auto;
-  margin-bottom: 24px;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.5); /* Temp mínima mais discreta */
+.daily-temp-box {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-#comp #temp span {
-  font-size: 32px;
+.temp-max {
+  font-size: 28px;
   font-weight: 700;
-  color: white;
-  margin-right: 8px;
 }
 
-#comp #weather {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-  position: relative;
-  padding-top: 12px;
+.temp-min {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-/* Barra visual acima do texto de chuva */
-#comp #weather::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
+.daily-precipitation {
+  font-size: 14px;
+  font-weight: 500;
+  color: #81cfec;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

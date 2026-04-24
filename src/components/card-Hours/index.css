@@ -1,21 +1,27 @@
-#divP {
+.hourly-item {
   min-width: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 12px;
-  border: none;
 }
 
-#divP #hours {
+.hourly-time {
   font-size: 14px;
   font-weight: 400;
+  flex-shrink: 0;
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
 
-#divP #temp {
+.hourly-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hourly-temp {
   font-size: 18px;
   font-weight: 600;
   margin: 0;
