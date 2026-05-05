@@ -1,7 +1,7 @@
 import { isAfter, startOfDay, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { WeatherIcon } from "../temperature-icons-wather/Icon";
-import { useDaily } from "../../api-response/emb";
+import { useDaily } from "../../api-response/weatherapi";
 import "./index.css";
 
 export const DaysComponent = () => {

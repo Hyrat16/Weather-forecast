@@ -1,16 +1,17 @@
-import React from "react";
 import { fetchWeatherApi } from "openmeteo";
-import { useState, useEffect, useContext, ReactNode } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+  createContext,
+} from "react";
+import { useCoordenadas } from "./geoapi";
 
-interface DadosGeo {
-  latitude: number;
-  longitude: number;
-}
-
-async function main() {
+export async function main(latitude: number, longitude: number) {
   const params = {
-    latitude: -19.9546,
-    longitude: -44.3407,
+    latitude,
+    longitude,
     current: ["temperature_2m", "weather_code"],
     hourly: ["temperature_2m", "weather_code", "precipitation_probability"],
     daily: [
@@ -85,7 +86,6 @@ async function main() {
   };
 }
 
-// criar 3 contexts diferentes para cada dado  DAILY, CURRENT E O HOURLY
 interface Daily {
   time: Date;
   tempMax: number;
@@ -121,11 +121,11 @@ interface WeatherCoordinatorProps {
 }
 
 //
-export const nameContext = React.createContext<DadosWearther | undefined>(
-  undefined,
-);
+export const nameContext = createContext<DadosWearther | undefined>(undefined);
 
 export const DaisProvider = ({ children }: WeatherCoordinatorProps) => {
+  const { lat, long, loading: geoLoading } = useCoordenadas();
+
   const [current, setCurrent] = useState<Current | null>(null);
   const [daily, setDaily] = useState<Daily[]>([]);
   const [hourly, setHourly] = useState<Hourly[]>([]);
@@ -134,11 +134,17 @@ export const DaisProvider = ({ children }: WeatherCoordinatorProps) => {
   const [erro, setErro] = useState<string | null>(null);
 
   const BuscDay = async () => {
+    // Não buscar se as coordenadas ainda são 0,0
+    //Retorna isso normalmente quando o processo inteiro nao foi feito do jeito certinho
+    if (lat === 0 && long === 0) {
+      return;
+    }
+
     try {
       setLoading(true);
       setErro(null);
 
-      const dados = await main();
+      const dados = await main(lat, long);
 
       setCurrent(dados.current);
       setDaily(dados.daily);
@@ -151,27 +157,26 @@ export const DaisProvider = ({ children }: WeatherCoordinatorProps) => {
   };
 
   useEffect(() => {
-    BuscDay();
-  }, []);
+    if (!geoLoading && lat !== 0 && long !== 0) {
+      BuscDay();
+    }
+  }, [lat, long, geoLoading]);
 
   return (
     <nameContext.Provider
-      value={{ daily, hourly, current, loading, erro, refetch: BuscDay }}
+      value={{
+        daily,
+        hourly,
+        current,
+        loading: loading || geoLoading,
+        erro,
+        refetch: BuscDay,
+      }}
     >
       {children}
     </nameContext.Provider>
   );
 };
-
-/* export const UseDadosAPI = () => {
-  const context = useContext(nameContext);
-
-  if (context === undefined) {
-    throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
-  }
-
-  return context;
-}; */
 
 export const useHourly = () => {
   const context = useContext(nameContext);
@@ -180,9 +185,11 @@ export const useHourly = () => {
     throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
   }
 
-  const { hourly, loading, erro } = context;
-
-  return { hourly, loading, erro };
+  return {
+    hourly: context.hourly,
+    loading: context.loading,
+    erro: context.erro,
+  };
 };
 
 export const useDaily = () => {
@@ -192,9 +199,7 @@ export const useDaily = () => {
     throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
   }
 
-  const { loading, erro, daily } = context;
-
-  return { loading, erro, daily };
+  return { loading: context.loading, erro: context.erro, daily: context.daily };
 };
 
 export const useCurrent = () => {
@@ -204,7 +209,9 @@ export const useCurrent = () => {
     throw new Error("useDadosAPI deve ser usado dentro de DadosAPIProvider");
   }
 
-  const { loading, erro, current } = context;
-
-  return { loading, erro, current };
+  return {
+    loading: context.loading,
+    erro: context.erro,
+    current: context.current,
+  };
 };

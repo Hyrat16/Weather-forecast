@@ -1,25 +1,28 @@
-//import { useState } from 'react'
 import "./App.css";
 import { WeatherIcon } from "./components/temperature-icons-wather/Icon";
-import { dates } from "./components/date";
 import { ButtonSearch } from "./components/button-search";
 import { CardHours } from "./components/card-Hours";
 import { DaysComponent } from "./components/card-Daily";
-import { DaisProvider, useHourly, useCurrent } from "./api-response/emb";
-
-const city = "São Paulo";
+import { DaisProvider, useCurrent } from "./api-response/weatherapi";
+import { AGIProvider } from "./api-response/geoapi";
+import { useGeoApi } from "./api-response/geoapi";
+import { useRelogio } from "./components/date";
+import { useDragScroll } from "./api-response/useDragScrow";
 
 function WeatherContent() {
   const { current } = useCurrent();
+  const { name: cityName } = useGeoApi();
+  const horaAtual = useRelogio();
+  const scrollRef = useDragScroll();
 
   return (
     <div id="container">
       <div className="glass-panel">
         <div className="temperature-block">
           <div className="temperature-main">
-            <h1 className="city-name">{city}</h1>
+            <h1 className="city-name">{cityName}</h1>
             <p className="temperature-main">{current?.temperature}°C</p>
-            <p className="date-hours">{dates}</p>
+            <p className="date-hours">{horaAtual}</p>
           </div>
 
           <div className="icon">
@@ -38,7 +41,7 @@ function WeatherContent() {
         </div>
       </div>
 
-      <div id="divPrincipal2">
+      <div id="divPrincipal2" ref={scrollRef}>
         <CardHours />
       </div>
 
@@ -51,9 +54,11 @@ function WeatherContent() {
 
 function App() {
   return (
-    <DaisProvider>
-      <WeatherContent />
-    </DaisProvider>
+    <AGIProvider usarGeolocalizaçao={true} cidadePadrao="São Paulo">
+      <DaisProvider>
+        <WeatherContent />
+      </DaisProvider>
+    </AGIProvider>
   );
 }
 

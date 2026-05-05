@@ -1,5 +1,6 @@
 .hourly-item {
   min-width: 60px;
+  flex-shrink: 0; /* CRÍTICO: impede que os itens encolham */
   display: flex;
   flex-direction: column;
   justify-content: center;

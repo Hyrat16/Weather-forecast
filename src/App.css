@@ -118,25 +118,28 @@ p.temperature-main {
 
 #divPrincipal2 {
   width: 100%;
+  max-width: 100%;
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px; /* Igual ao topo para manter consistência */
+  border-radius: 20px;
   padding: 24px;
   display: flex;
   overflow-x: auto;
-  gap: 32px; /* Aumentei o gap levemente para respirar melhor */
+  overflow-y: hidden;
+  gap: 32px;
+  cursor: grab;
+  user-select: none; /* Evita selecionar texto ao arrastar */
 
-  /* Remove a barra de rolagem visualmente, mas mantém a funcionalidade */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 #divPrincipal2::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
-#divPrincipal2::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+
+#divPrincipal2:active {
+  cursor: grabbing;
 }
 
 #divPrincipal3 {
